@@ -218,7 +218,7 @@ export function buildHTML(doc, options = {}) {
     coverHtml,
     hasCover: !!coverHtml,
     logoImg: logoImgTag(24),
-    logoImgLg: logoImgTag(48),
+    logoImgLg: logoImgTag(72),
     logoDataUri,
     logoHorizWhite: logoHorizontalWhite(28),
     logoHorizBlack: logoHorizontalBlack(28),
