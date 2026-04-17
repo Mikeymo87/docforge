@@ -23,7 +23,7 @@ export async function renderPdf(htmlString, options = {}) {
   const page = await browser.newPage();
 
   try {
-    await page.setContent(htmlString, { waitUntil: 'networkidle0', timeout: 30000 });
+    await page.setContent(htmlString, { waitUntil: 'networkidle0', timeout: 120000 });
 
     const pdfBuffer = await page.pdf({
       format,

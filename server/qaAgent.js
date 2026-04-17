@@ -51,9 +51,14 @@ function astToMarkdown(doc) {
 export async function qaReview(doc) {
   const markdown = astToMarkdown(doc);
 
+  // Skip QA for very large documents — Haiku context limit; parser handles structure well enough
+  if (markdown.length > 60000) {
+    return doc;
+  }
+
   const response = await getClient().messages.create({
     model: 'claude-haiku-4-5-20251001',
-    max_tokens: 8192,
+    max_tokens: 16000,
     messages: [
       {
         role: 'user',
