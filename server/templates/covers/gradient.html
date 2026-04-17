@@ -1,0 +1,77 @@
+<style>
+  .cover-gradient {
+    min-height: 10in;
+    background: linear-gradient(145deg, #1a1d1e 0%, #25282A 60%, #2EA84A 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 72px 64px;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-gradient::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    right: -40px;
+    width: 320px;
+    height: 320px;
+    background-image: url('{{{logoDataUri}}}');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.06;
+  }
+  .cover-gradient .cover-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2EA84A, #7DE69B, #59BEC9);
+  }
+  .cover-gradient .cover-org {
+    color: #7DE69B;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .cover-gradient h1 {
+    color: #fff;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0 0 16px;
+    letter-spacing: -0.025em;
+    max-width: 90%;
+  }
+  .cover-gradient .thin-rule {
+    width: 80px;
+    height: 2px;
+    background: #7DE69B;
+    margin: 16px 0;
+  }
+  .cover-gradient .subtitle {
+    color: #7DE69B;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0 0 8px;
+    font-style: italic;
+  }
+  .cover-gradient .meta {
+    color: rgba(255,255,255,0.35);
+    font-size: 13px;
+    margin: 4px 0 0;
+  }
+  @media print { .cover-gradient { min-height: 100vh; } }
+</style>
+<div class="cover-gradient">
+  <div class="cover-bar"></div>
+  <div class="cover-org">{{org}}</div>
+  <h1>{{title}}</h1>
+  <div class="thin-rule"></div>
+  {{#if subtitle}}<p class="subtitle">{{subtitle}}</p>{{/if}}
+  <p class="meta">{{date}} {{#if confidentiality}}· {{confidentiality}}{{/if}}</p>
+</div>

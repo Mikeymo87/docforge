@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}} — {{subtitle}}</title>
+<style>{{{baseCSS}}}</style>
+<style>
+  /* ── MAGAZINE TEMPLATE ── */
+  body { background: #fff; }
+  .page { background: #fff; }
+
+  /* Cover is now injected via coverHtml — see server/templates/covers/ */
+
+  /* ── BODY LAYOUT ── */
+  .mag-body {
+    padding: 36px 48px 40px;
+  }
+
+  /* ── DROP CAP on first paragraph after h2 ── */
+  .mag-body h2 + p::first-letter {
+    float: left;
+    font-size: 52px;
+    line-height: 0.85;
+    padding-right: 8px;
+    padding-top: 4px;
+    color: #2EA84A;
+    font-weight: 800;
+  }
+
+  /* ── HEADINGS ── */
+  .mag-body h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1d1e;
+    margin: 32px 0 10px;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+  }
+  .mag-body h2:first-child {
+    margin-top: 0;
+  }
+  /* Section number accent */
+  .mag-body h2::before {
+    display: none;
+  }
+  .mag-body h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #25282A;
+    margin: 22px 0 6px;
+    padding-bottom: 4px;
+    border-bottom: 0.25px solid #e8eaec;
+  }
+  .mag-body h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2EA84A;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 16px 0 4px;
+  }
+
+  /* ── BODY TEXT ── */
+  .mag-body p {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.7;
+    margin: 0 0 10px;
+  }
+
+  /* ── PULL QUOTE ── */
+  .mag-pullquote {
+    margin: 28px 0;
+    padding: 0;
+    border: none;
+    background: none;
+    text-align: center;
+    position: relative;
+    font-style: normal;
+  }
+  .mag-pullquote::before {
+    content: "\201C";
+    display: block;
+    font-size: 72px;
+    line-height: 0.5;
+    color: #7DE69B;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .mag-pullquote p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #25282A;
+    line-height: 1.5;
+    font-style: italic;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  /* ── SIDEBAR CALLOUT ── */
+  .mag-sidebar {
+    float: right;
+    width: 38%;
+    margin: 4px 0 16px 24px;
+    padding: 20px 22px;
+    background: #1a1d1e;
+    border-radius: 8px;
+    color: #fff;
+  }
+  .mag-sidebar .sidebar-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7DE69B;
+    margin-bottom: 8px;
+  }
+  .mag-sidebar p {
+    color: rgba(255,255,255,0.85);
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 0 0 6px;
+  }
+  .mag-sidebar strong {
+    color: #7DE69B;
+  }
+
+  /* ── TABLES ── */
+  .mag-body table {
+    font-size: 12px;
+    margin: 10px 0 16px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* ── LISTS ── */
+  .mag-body ul li, .mag-body ol li {
+    font-size: 13px;
+    margin-bottom: 4px;
+    line-height: 1.6;
+  }
+
+  /* ── BLOCKQUOTES ── */
+  .mag-body blockquote {
+    font-size: 14px;
+    margin: 16px 0;
+    padding: 14px 22px;
+    border-left: 3px solid #2EA84A;
+    background: none;
+    font-style: italic;
+    color: #555;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .mag-body hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, #2EA84A, #7DE69B, #59BEC9, transparent);
+    margin: 28px 0;
+  }
+
+  /* ── BOTTOM LINE ── */
+  .mag-bottomline {
+    background: #1a1d1e;
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-top: 28px;
+  }
+  .mag-bottomline .bl-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7DE69B;
+    margin-bottom: 6px;
+  }
+  .mag-bottomline p {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── FOOTER ── */
+  .mag-footer {
+    text-align: center;
+    font-size: 10px;
+    color: #aab0b7;
+    padding: 24px 48px 20px;
+    border-top: 0.25px solid #e8eaec;
+    margin-top: 40px;
+  }
+
+  @media print { }
+</style>
+</head>
+<body>
+<div class="page">
+  {{{coverHtml}}}
+
+  <!-- BODY -->
+  <div class="mag-body">
+    {{#each sections}}
+      {{#ifEquals this.type "heading"}}
+        {{#ifEquals this.level 2}}<h2 id="{{this.id}}">{{this.text}}</h2>{{/ifEquals}}
+        {{#ifEquals this.level 3}}<h3 id="{{this.id}}">{{this.text}}</h3>{{/ifEquals}}
+        {{#ifEquals this.level 4}}<h4>{{this.text}}</h4>{{/ifEquals}}
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "paragraph"}}
+        <p>{{{this.html}}}</p>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "table"}}
+        <table>
+          <thead><tr>
+            {{#each this.headers}}<th>{{{this}}}</th>{{/each}}
+          </tr></thead>
+          <tbody>
+            {{#each this.rows}}
+            <tr>{{#each this}}<td>{{{this}}}</td>{{/each}}</tr>
+            {{/each}}
+          </tbody>
+        </table>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "list"}}
+        {{#if this.ordered}}
+        <ol>{{#each this.items}}<li>{{{this}}}</li>{{/each}}</ol>
+        {{else}}
+        <ul>{{#each this.items}}<li>{{{this}}}</li>{{/each}}</ul>
+        {{/if}}
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "blockquote"}}
+        <blockquote>{{{this.html}}}</blockquote>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "code"}}
+        <pre><code>{{this.text}}</code></pre>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "hr"}}
+        <hr />
+      {{/ifEquals}}
+    {{/each}}
+
+    {{#if bottomLine}}
+    <div class="mag-bottomline">
+      <div class="bl-label">Bottom Line</div>
+      <p>{{bottomLine}}</p>
+    </div>
+    {{/if}}
+  </div>
+
+  {{#if footnote}}
+  <div class="mag-footer">{{footnote}}</div>
+  {{/if}}
+
+</div>
+</body>
+</html>

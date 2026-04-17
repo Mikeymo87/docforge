@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}} — {{subtitle}}</title>
+<style>{{{baseCSS}}}</style>
+<style>
+  /* ── FULL REPORT TEMPLATE ── */
+  body { background: #fff; }
+  .page { background: #fff; }
+
+  /* Cover is now injected via coverHtml — see server/templates/covers/ */
+  .cover-divider {
+    height: 3px;
+    background: linear-gradient(90deg, #2EA84A 0%, #7DE69B 40%, transparent 100%);
+    margin-top: 32px;
+  }
+
+  /* ── TABLE OF CONTENTS ── */
+  .toc-page {
+    padding: 48px 56px;
+    page-break-after: always;
+  }
+  .toc-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #2EA84A;
+    margin-bottom: 24px;
+  }
+  .toc-entry {
+    display: flex;
+    align-items: baseline;
+    padding: 7px 0;
+    border-bottom: 0.25px dotted #ccc;
+    text-decoration: none;
+    color: #25282A;
+    transition: color 0.15s;
+  }
+  .toc-entry:hover { color: #2EA84A; }
+  .toc-entry-text {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .toc-entry.level-3 .toc-entry-text {
+    font-weight: 400;
+    font-size: 13px;
+    color: #666;
+  }
+  .toc-entry-dots {
+    flex: 1;
+    border-bottom: 0.25px dotted #ccc;
+    margin: 0 10px;
+    min-width: 20px;
+  }
+  .toc-entry-page {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2EA84A;
+    min-width: 20px;
+    text-align: right;
+  }
+
+  /* ── BODY ── */
+  .report-body {
+    padding: 32px 56px 40px;
+  }
+
+  /* ── RUNNING HEADER ── */
+  .report-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 56px 10px;
+    border-bottom: 0.25px solid #e8eaec;
+    margin-bottom: 24px;
+    font-size: 10px;
+    color: #797D80;
+    letter-spacing: 0.04em;
+  }
+  .report-header .doc-title {
+    margin-left: auto;
+    font-weight: 600;
+  }
+
+  /* ── RUNNING FOOTER ── */
+  .report-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 56px 0;
+    border-top: 0.25px solid #e8eaec;
+    margin-top: 32px;
+    font-size: 9px;
+    color: #aab0b7;
+  }
+
+  /* ── SECTION STYLING ── */
+  .report-body h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a1d1e;
+    margin: 28px 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .report-body h2:first-child {
+    margin-top: 0;
+  }
+  .report-body h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #25282A;
+    margin: 18px 0 4px;
+  }
+  .report-body h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2EA84A;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 14px 0 3px;
+  }
+  .report-body p {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.65;
+    margin: 0 0 8px;
+  }
+  .report-body table {
+    font-size: 12px;
+    margin: 8px 0 14px;
+  }
+  .report-body ul li, .report-body ol li {
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+  .report-body blockquote {
+    font-size: 13px;
+    margin: 10px 0;
+  }
+
+  /* ── BOTTOM LINE ── */
+  .bottom-line {
+    border-left: 3px solid #2EA84A;
+    padding: 12px 20px;
+    margin-top: 20px;
+    page-break-inside: avoid;
+  }
+  .bottom-line .bl-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2EA84A;
+    margin-bottom: 4px;
+  }
+  .bottom-line p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1d1e;
+    margin: 0;
+  }
+
+  @media print {
+    .cover { min-height: 100vh; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  {{{coverHtml}}}
+
+  <!-- TABLE OF CONTENTS -->
+  {{#if hasToc}}
+  <div class="toc-page">
+    <div class="toc-title">Contents</div>
+    {{#each toc}}
+    <a class="toc-entry level-{{this.level}}" href="#{{this.id}}" style="padding-left: {{tocIndent this.level}}px">
+      <span class="toc-entry-text">{{this.text}}</span>
+      <span class="toc-entry-dots"></span>
+      <span class="toc-entry-page">{{this.page}}</span>
+    </a>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <!-- RUNNING HEADER -->
+  <div class="report-header">
+    {{{logoImg}}}
+    <span>{{org}}</span>
+    <span class="doc-title">{{title}}</span>
+  </div>
+
+  <!-- BODY -->
+  <div class="report-body">
+    {{#each sections}}
+      {{#ifEquals this.type "heading"}}
+        {{#ifEquals this.level 2}}<h2 id="{{this.id}}">{{this.text}}</h2>{{/ifEquals}}
+        {{#ifEquals this.level 3}}<h3 id="{{this.id}}">{{this.text}}</h3>{{/ifEquals}}
+        {{#ifEquals this.level 4}}<h4>{{this.text}}</h4>{{/ifEquals}}
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "paragraph"}}
+        <p>{{{this.html}}}</p>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "table"}}
+        <table>
+          <thead><tr>
+            {{#each this.headers}}<th>{{{this}}}</th>{{/each}}
+          </tr></thead>
+          <tbody>
+            {{#each this.rows}}
+            <tr>{{#each this}}<td>{{{this}}}</td>{{/each}}</tr>
+            {{/each}}
+          </tbody>
+        </table>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "list"}}
+        {{#if this.ordered}}
+        <ol>{{#each this.items}}<li>{{{this}}}</li>{{/each}}</ol>
+        {{else}}
+        <ul>{{#each this.items}}<li>{{{this}}}</li>{{/each}}</ul>
+        {{/if}}
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "blockquote"}}
+        <blockquote>{{{this.html}}}</blockquote>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "code"}}
+        <pre><code>{{this.text}}</code></pre>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "hr"}}
+        <hr />
+      {{/ifEquals}}
+    {{/each}}
+
+    {{#if bottomLine}}
+    <div class="bottom-line">
+      <div class="bl-label">Bottom Line</div>
+      <p>{{bottomLine}}</p>
+    </div>
+    {{/if}}
+  </div>
+
+  <!-- RUNNING FOOTER -->
+  <div class="report-footer">
+    <span>{{confidentiality}}</span>
+    <span>{{footnote}}</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+export const BH = {
+  green: '#2EA84A',
+  mint: '#7DE69B',
+  black: '#25282A',
+  white: '#FFFFFF',
+  turquoise: '#59BEC9',
+  offWhite: '#EFE7DD',
+  lightGray: '#F1F1F1',
+  mediumGray: '#797D80',
+  yellow: '#FFCD00',
+  coral: '#E5554F',
+  darkBg: '#1a1d1e',
+  border: '#e8eaec',
+  textBody: '#444444',
+  textMuted: '#aab0b7',
+};

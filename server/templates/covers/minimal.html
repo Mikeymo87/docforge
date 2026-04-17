@@ -1,0 +1,59 @@
+<style>
+  .cover-minimal {
+    min-height: 10in;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 64px;
+    page-break-after: always;
+    text-align: center;
+  }
+  .cover-minimal .cover-logo {
+    margin-bottom: 40px;
+  }
+  .cover-minimal .cover-divider {
+    width: 60px;
+    height: 3px;
+    background: #2EA84A;
+    margin: 0 auto 32px;
+    border-radius: 2px;
+  }
+  .cover-minimal h1 {
+    color: #1a1d1e;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+  }
+  .cover-minimal .subtitle {
+    color: #2EA84A;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 24px;
+  }
+  .cover-minimal .meta {
+    color: #797D80;
+    font-size: 13px;
+    margin: 0;
+  }
+  .cover-minimal .org {
+    color: #797D80;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 48px;
+  }
+  @media print { .cover-minimal { min-height: 100vh; } }
+</style>
+<div class="cover-minimal">
+  <div class="cover-logo">{{{logoImgLg}}}</div>
+  <div class="cover-divider"></div>
+  <h1>{{title}}</h1>
+  {{#if subtitle}}<p class="subtitle">{{subtitle}}</p>{{/if}}
+  <p class="meta">{{date}} {{#if confidentiality}}· {{confidentiality}}{{/if}}</p>
+  <p class="org">{{org}}</p>
+</div>

@@ -1,0 +1,82 @@
+<style>
+  .cover-dark {
+    min-height: 10in;
+    background: #1a1d1e;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 60px 56px;
+    page-break-after: always;
+    position: relative;
+  }
+  .cover-dark .cover-logo {
+    position: absolute;
+    top: 48px;
+    left: 56px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cover-dark .cover-org {
+    color: #7DE69B;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .cover-dark .cover-type {
+    position: absolute;
+    top: 52px;
+    right: 56px;
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cover-dark .cover-accent {
+    width: 60px;
+    height: 4px;
+    background: #2EA84A;
+    margin-bottom: 24px;
+    border-radius: 2px;
+  }
+  .cover-dark h1 {
+    color: #fff;
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+    max-width: 85%;
+  }
+  .cover-dark .subtitle {
+    color: #7DE69B;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 0 8px;
+  }
+  .cover-dark .meta {
+    color: rgba(255,255,255,0.4);
+    font-size: 13px;
+    margin: 0;
+  }
+  .cover-dark .cover-divider {
+    height: 3px;
+    background: linear-gradient(90deg, #2EA84A 0%, #7DE69B 40%, transparent 100%);
+    margin-top: 32px;
+  }
+  @media print { .cover-dark { min-height: 100vh; } }
+</style>
+<div class="cover-dark">
+  <div class="cover-logo">
+    {{{logoImgLg}}}
+    <span class="cover-org">{{org}}</span>
+  </div>
+  <span class="cover-type">{{docType}}</span>
+  <div class="cover-accent"></div>
+  <h1>{{title}}</h1>
+  {{#if subtitle}}<p class="subtitle">{{subtitle}}</p>{{/if}}
+  <p class="meta">{{date}} {{#if confidentiality}}· {{confidentiality}}{{/if}}</p>
+  <div class="cover-divider"></div>
+</div>

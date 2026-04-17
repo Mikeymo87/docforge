@@ -1,0 +1,274 @@
+/* DocForge — Base Print Stylesheet
+   Shared across all templates. Handles @page rules, page breaks,
+   brand typography, and core element styling. */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+:root {
+  --bh-green: #2EA84A;
+  --bh-mint: #7DE69B;
+  --bh-black: #25282A;
+  --bh-turquoise: #59BEC9;
+  --bh-white: #FFFFFF;
+  --bh-off-white: #EFE7DD;
+  --bh-light-gray: #F1F1F1;
+  --bh-medium-gray: #797D80;
+  --bh-dark-bg: #1a1d1e;
+  --bh-border: #e8eaec;
+  --bh-text-body: #444444;
+  --bh-text-muted: #aab0b7;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  color-adjust: exact !important;
+}
+
+body {
+  font-family: 'DM Sans', Arial, Helvetica, sans-serif;
+  color: var(--bh-black);
+  font-size: 11pt;
+  line-height: 1.65;
+}
+
+/* ── PAGE RULES ── */
+@page {
+  size: letter;
+  margin: 0.25in;
+}
+
+/* ── PAGE BREAK CONTROL ── */
+/* Never leave a heading stranded at the bottom of a page */
+h1, h2, h3, h4 { page-break-after: avoid; break-after: avoid; }
+
+/* Don't split tables or blockquotes across pages if possible */
+table, blockquote, .callout { page-break-inside: avoid; }
+
+/* Explicit page break class */
+.page-break { page-break-before: always; }
+
+/* Prevent widows/orphans */
+p { orphans: 3; widows: 3; }
+
+/* Tables: repeat headers if table spans pages, don't split rows */
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+
+/* ── HEADINGS ── */
+h1 {
+  font-size: 22pt;
+  font-weight: 800;
+  color: var(--bh-black);
+  line-height: 1.2;
+  margin: 24px 0 8px;
+}
+h2 {
+  font-size: 16pt;
+  font-weight: 800;
+  color: var(--bh-black);
+  line-height: 1.3;
+  margin: 22px 0 6px;
+}
+h3 {
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--bh-green);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 16px 0 4px;
+}
+h4, h5, h6 {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--bh-black);
+  margin: 12px 0 4px;
+}
+
+/* ── EYEBROW LABELS ── */
+.eyebrow {
+  font-size: 9pt;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bh-green);
+  margin-bottom: 6px;
+}
+
+/* ── PARAGRAPHS ── */
+p {
+  font-size: 11pt;
+  color: var(--bh-text-body);
+  line-height: 1.6;
+  margin: 2px 0 6px;
+}
+
+/* ── TABLES ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 12px;
+  font-size: 10pt;
+  table-layout: fixed;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+thead tr {
+  background: var(--bh-dark-bg);
+}
+thead th {
+  color: var(--bh-mint);
+  font-weight: 700;
+  font-size: 8pt;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  text-align: left;
+  word-wrap: break-word;
+}
+tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+tbody tr:nth-child(odd) {
+  background: var(--bh-white);
+}
+tbody td {
+  padding: 8px 10px;
+  color: var(--bh-black);
+  border-bottom: 0.25px solid #e0e2e4;
+  word-wrap: break-word;
+  font-size: 9pt;
+}
+tbody td:last-child {
+  font-weight: 700;
+  color: var(--bh-green);
+}
+
+/* ── LISTS ── */
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 4px 0 8px;
+}
+ul li {
+  font-size: 11pt;
+  color: var(--bh-text-body);
+  line-height: 1.5;
+  padding-left: 18px;
+  position: relative;
+  margin-bottom: 3px;
+}
+ul li::before {
+  content: "\203A";
+  position: absolute;
+  left: 0;
+  color: var(--bh-green);
+  font-weight: 700;
+  font-size: 14pt;
+  line-height: 1.3;
+}
+ol {
+  padding-left: 22px;
+  margin: 4px 0 8px;
+}
+ol li {
+  font-size: 11pt;
+  color: var(--bh-text-body);
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+
+/* ── BLOCKQUOTES ── */
+blockquote {
+  border-left: 2px solid var(--bh-green);
+  padding: 8px 18px;
+  margin: 10px 0;
+  background: none;
+  font-style: italic;
+  font-size: 11pt;
+  color: var(--bh-medium-gray);
+  line-height: 1.6;
+}
+
+/* ── CODE BLOCKS ── */
+pre {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  padding: 20px 24px;
+  border-radius: 8px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 9pt;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+code {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 9pt;
+  background: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* ── HORIZONTAL RULE ── */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, var(--bh-green), var(--bh-mint), transparent);
+  margin: 16px 0;
+}
+
+/* ── CALLOUT BOX ── */
+.callout {
+  border: 0.25px solid var(--bh-green);
+  border-radius: 6px;
+  padding: 14px 20px;
+  margin: 12px 0;
+  background: none;
+}
+.callout-label {
+  font-size: 9pt;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bh-green);
+  margin-bottom: 6px;
+}
+.callout p {
+  font-weight: 600;
+  color: var(--bh-black);
+}
+
+/* ── RUNNING HEADER/FOOTER ── */
+.running-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 0.25px solid var(--bh-green);
+  margin-bottom: 20px;
+  font-size: 9pt;
+  color: var(--bh-medium-gray);
+}
+.running-header img {
+  flex-shrink: 0;
+}
+.running-footer {
+  border-top: 0.25px solid var(--bh-border);
+  padding-top: 8px;
+  margin-top: 20px;
+  font-size: 8pt;
+  color: var(--bh-text-muted);
+  display: flex;
+  justify-content: space-between;
+}

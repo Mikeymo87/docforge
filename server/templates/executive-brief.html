@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}} — {{subtitle}}</title>
+<style>{{{baseCSS}}}</style>
+<style>
+  /* ── EXECUTIVE BRIEF TEMPLATE ── */
+  body { background: #f5f6f7; }
+
+  .page {
+    background: #fff;
+  }
+
+  /* ── DARK HEADER ── */
+  .doc-header {
+    background: #1a1d1e;
+    padding: 28px 32px 24px;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .bh-mark {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bh-mark img {
+    border-radius: 4px;
+  }
+  .org-name {
+    color: #7DE69B;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .doc-type {
+    color: rgba(255,255,255,0.35);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+  .doc-header h1 {
+    color: #fff;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .doc-header .subtitle {
+    color: #7DE69B;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 6px;
+  }
+  .doc-header .meta {
+    color: rgba(255,255,255,0.45);
+    font-size: 12px;
+    margin: 0;
+  }
+
+  /* ── GREEN GRADIENT DIVIDER ── */
+  .divider {
+    height: 3px;
+    background: linear-gradient(90deg, #2EA84A 0%, #7DE69B 50%, transparent 100%);
+  }
+
+  /* ── BODY ── */
+  .doc-body {
+    padding: 20px 32px 28px;
+  }
+  /* ── TYPOGRAPHIC HIERARCHY ── */
+
+  /* H2 — Major sections */
+  .doc-body h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1a1d1e;
+    margin: 20px 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .doc-body h2:first-child {
+    margin-top: 0;
+  }
+
+  /* H3 — Subsections */
+  .doc-body h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #25282A;
+    margin: 16px 0 4px;
+  }
+
+  /* H4 — Minor labels */
+  .doc-body h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2EA84A;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 12px 0 3px;
+  }
+
+  /* Body text */
+  .doc-body p {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+    margin: 0 0 8px;
+  }
+
+  /* Tables */
+  .doc-body table {
+    font-size: 12px;
+    margin: 8px 0 12px;
+  }
+  .doc-body table strong {
+    color: #25282A;
+  }
+
+  /* Lists — indented with breathing room */
+  .doc-body ul, .doc-body ol {
+    margin: 4px 0 10px;
+    padding-left: 6px;
+  }
+  .doc-body ul li {
+    font-size: 13px;
+    margin-bottom: 3px;
+    padding-left: 20px;
+  }
+  .doc-body ol {
+    padding-left: 28px;
+  }
+  .doc-body ol li {
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+
+  /* Blockquotes */
+  .doc-body blockquote {
+    margin: 10px 0;
+    font-size: 13px;
+  }
+
+  /* Code / HR */
+  .doc-body pre {
+    margin: 8px 0;
+  }
+  .doc-body hr {
+    margin: 14px 0;
+  }
+
+  /* ── BOTTOM LINE CALLOUT ── */
+  .bottom-line {
+    background: none;
+    border-left: 2px solid #2EA84A;
+    border-radius: 0;
+    padding: 10px 18px;
+    margin-top: 12px;
+    margin-bottom: 16px;
+  }
+  .bottom-line .bl-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2EA84A;
+    margin-bottom: 6px;
+  }
+  .bottom-line p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1d1e;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    text-align: center;
+    font-size: 11px;
+    color: #aab0b7;
+    padding: 0 32px 20px;
+  }
+
+  /* ── PRINT OVERRIDES ── */
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; border-radius: 0; margin: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  {{{coverHtml}}}
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="header-top">
+      <span class="bh-mark">{{{logoImg}}}</span>
+      <span class="org-name">{{org}}</span>
+      <span class="doc-type">{{docType}}</span>
+    </div>
+    <h1>{{title}}</h1>
+    {{#if subtitle}}<p class="subtitle">{{subtitle}}</p>{{/if}}
+    <p class="meta">{{date}}</p>
+  </div>
+  <div class="divider"></div>
+
+  <!-- BODY -->
+  <div class="doc-body">
+    {{#each sections}}
+      {{#ifEquals this.type "heading"}}
+        {{#ifEquals this.level 2}}<h2>{{this.text}}</h2>{{/ifEquals}}
+        {{#ifEquals this.level 3}}<h3>{{this.text}}</h3>{{/ifEquals}}
+        {{#ifEquals this.level 4}}<h4>{{this.text}}</h4>{{/ifEquals}}
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "paragraph"}}
+        <p>{{{this.html}}}</p>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "table"}}
+        <table>
+          <thead><tr>
+            {{#each this.headers}}<th>{{{this}}}</th>{{/each}}
+          </tr></thead>
+          <tbody>
+            {{#each this.rows}}
+            <tr>{{#each this}}<td>{{{this}}}</td>{{/each}}</tr>
+            {{/each}}
+          </tbody>
+        </table>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "list"}}
+        {{#if this.ordered}}
+        <ol>{{#each this.items}}<li>{{{this}}}</li>{{/each}}</ol>
+        {{else}}
+        <ul>{{#each this.items}}<li>{{{this}}}</li>{{/each}}</ul>
+        {{/if}}
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "blockquote"}}
+        <blockquote>{{{this.html}}}</blockquote>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "code"}}
+        <pre><code>{{this.text}}</code></pre>
+      {{/ifEquals}}
+
+      {{#ifEquals this.type "hr"}}
+        <hr />
+      {{/ifEquals}}
+    {{/each}}
+
+    {{#if bottomLine}}
+    <div class="bottom-line">
+      <div class="bl-label">Bottom Line</div>
+      <p>{{bottomLine}}</p>
+    </div>
+    {{/if}}
+  </div>
+
+  {{#if footnote}}
+  <div class="doc-footer">{{footnote}}</div>
+  {{/if}}
+</div>
+</body>
+</html>

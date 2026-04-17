@@ -1,0 +1,337 @@
+:root {
+  --bh-green: #2EA84A;
+  --bh-mint: #7DE69B;
+  --bh-black: #25282A;
+  --bh-turquoise: #59BEC9;
+  --bh-dark-bg: #000000;
+  --bh-border: #1a1a1a;
+  --bh-surface: #0a0a0a;
+  --bh-text: #e0e0e0;
+  --bh-text-muted: #888;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'DM Sans', Arial, sans-serif;
+  background: var(--bh-dark-bg);
+  color: var(--bh-text);
+  overflow: hidden;
+  height: 100vh;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: var(--bh-surface);
+  border-bottom: 1px solid var(--bh-border);
+  flex-shrink: 0;
+}
+.topbar-logo {
+  width: 28px;
+  height: 28px;
+}
+.topbar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+}
+.topbar-subtitle {
+  font-size: 12px;
+  color: var(--bh-text-muted);
+  margin-left: 4px;
+}
+.topbar-file {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--bh-mint);
+  font-weight: 600;
+}
+
+/* ── LAYOUT ── */
+.workspace {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── SIDEBAR (Options) ── */
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  background: var(--bh-surface);
+  border-right: 1px solid var(--bh-border);
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.sidebar h3 {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--bh-text-muted);
+  margin-bottom: 10px;
+}
+
+/* ── FORM ELEMENTS ── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--bh-text-muted);
+}
+.field-input {
+  background: var(--bh-dark-bg);
+  border: 1px solid var(--bh-border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: white;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.field-input:focus {
+  border-color: var(--bh-green);
+}
+
+/* ── TEMPLATE CARDS ── */
+.template-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.template-card {
+  padding: 12px 14px;
+  border: 2px solid var(--bh-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--bh-dark-bg);
+}
+.template-card:hover {
+  border-color: var(--bh-green);
+}
+.template-card.active {
+  border-color: var(--bh-green);
+  background: rgba(46, 168, 74, 0.08);
+}
+.template-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 2px;
+}
+.template-card-desc {
+  font-size: 11px;
+  color: var(--bh-text-muted);
+}
+
+/* ── TOGGLES ── */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+.toggle-label {
+  font-size: 13px;
+  color: var(--bh-text);
+}
+.toggle-switch {
+  width: 36px;
+  height: 20px;
+  background: var(--bh-border);
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.toggle-switch.on {
+  background: var(--bh-green);
+}
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  transition: transform 0.2s;
+}
+.toggle-switch.on::after {
+  transform: translateX(16px);
+}
+
+/* ── PREVIEW PANE ── */
+.preview-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.preview-frame {
+  flex: 1;
+  border: none;
+  background: #f5f6f7;
+}
+
+/* ── DOWNLOAD BAR ── */
+.download-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  background: var(--bh-surface);
+  border-top: 1px solid var(--bh-border);
+  flex-shrink: 0;
+}
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-pdf {
+  background: var(--bh-green);
+  color: white;
+}
+.btn-pdf:hover {
+  background: #259a3e;
+}
+.btn-pdf:disabled {
+  background: #333;
+  color: #666;
+  cursor: not-allowed;
+}
+.btn-word {
+  background: var(--bh-turquoise);
+  color: white;
+}
+.btn-word:hover {
+  background: #4aabbf;
+}
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--bh-border);
+  color: var(--bh-text);
+}
+.btn-secondary:hover {
+  border-color: var(--bh-green);
+  color: var(--bh-green);
+}
+.download-status {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--bh-text-muted);
+}
+
+/* ── UPLOAD ZONE ── */
+.upload-zone-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.upload-zone {
+  width: 100%;
+  max-width: 640px;
+  padding: 80px 60px;
+  border: 2px dashed var(--bh-border);
+  border-radius: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.upload-zone:hover,
+.upload-zone.dragover {
+  border-color: var(--bh-green);
+  background: rgba(46, 168, 74, 0.04);
+}
+.upload-zone.dragover {
+  transform: scale(1.01);
+}
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+.upload-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+}
+.upload-subtitle {
+  font-size: 14px;
+  color: var(--bh-text-muted);
+  margin-bottom: 24px;
+}
+.upload-formats {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.format-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(46, 168, 74, 0.1);
+  color: var(--bh-green);
+}
+
+/* ── LOADING ── */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.loading-card {
+  background: var(--bh-surface);
+  border-radius: 16px;
+  padding: 40px 60px;
+  text-align: center;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--bh-border);
+  border-top-color: var(--bh-green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
