@@ -203,8 +203,14 @@ export function buildHTML(doc, options = {}) {
   const coverRaw = loadCover(coverStyle);
   const coverHtml = coverRaw ? Handlebars.compile(coverRaw)({
     logoImg: logoImgTag(24),
-    logoImgLg: logoImgTag(48),
+    logoImgLg: logoImgTag(72),
     logoDataUri,
+    logoHorizWhite: logoHorizontalWhite(28),
+    logoHorizBlack: logoHorizontalBlack(28),
+    logoHorizWhiteLg: logoHorizontalWhite(40),
+    logoHorizBlackLg: logoHorizontalBlack(40),
+    logoStackedWhite: logoStackedWhite(44),
+    logoStackedBlack: logoStackedBlack(44),
     title: options.title || doc.metadata.title || 'Untitled Document',
     subtitle: options.subtitle || doc.metadata.subtitle || '',
     date: options.date || doc.metadata.date || '',
