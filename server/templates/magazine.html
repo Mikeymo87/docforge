@@ -8,35 +8,36 @@
 <style>
   /* ── MAGAZINE / EDITORIAL TEMPLATE ── */
 
-  /* ── HEADER ── */
+  /* ── DARK MASTHEAD ── */
   .mag-header {
-    padding: 32px 52px 22px;
+    background: #1a1d1e;
+    padding: 28px 52px 26px;
   }
   .mag-header-top {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 14px;
     margin-bottom: 20px;
   }
   .mag-org {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #2EA84A;
+    color: #7DE69B;
   }
   .mag-doctype {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #aab0b7;
+    color: rgba(255,255,255,0.35);
     margin-left: auto;
   }
   .mag-header h1 {
     font-size: 44px;
     font-weight: 900;
-    color: #25282A;
+    color: #fff;
     line-height: 1.05;
     letter-spacing: -0.025em;
     margin: 0 0 10px;
@@ -44,13 +45,13 @@
   .mag-subtitle {
     font-size: 16px;
     font-weight: 500;
-    color: #2EA84A;
+    color: #7DE69B;
     margin: 0 0 6px;
     line-height: 1.4;
   }
   .mag-meta {
     font-size: 11px;
-    color: #aab0b7;
+    color: rgba(255,255,255,0.45);
     margin: 0;
   }
 
@@ -96,10 +97,11 @@
   /* Drop cap — first paragraph in body only */
   .mag-body > p:first-of-type::first-letter {
     float: left;
-    font-size: 62px;
-    line-height: 0.82;
-    padding-right: 7px;
-    padding-top: 3px;
+    font-size: 4em;
+    line-height: 0.75;
+    margin-top: 4px;
+    margin-right: 6px;
+    margin-bottom: 0;
     color: #2EA84A;
     font-weight: 900;
   }
