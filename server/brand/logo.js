@@ -49,3 +49,8 @@ export const logoStackedWhite = (h = 48) => imgTag(sWhiteUri, Math.round(h * 2.6
 const sBlackSvg = loadSvg('bh-stacked-black.svg');
 const sBlackUri = toDataUri(sBlackSvg);
 export const logoStackedBlack = (h = 48) => imgTag(sBlackUri, Math.round(h * 2.64), h);
+
+// Stacked lockup — color pineapple (green) + black text (for white backgrounds)
+const sColorBlackSvg = loadSvg('bh-stacked-color-black.svg');
+const sColorBlackUri = toDataUri(sColorBlackSvg);
+export const logoStackedColorBlack = (h = 48) => imgTag(sColorBlackUri, Math.round(h * 2.64), h);

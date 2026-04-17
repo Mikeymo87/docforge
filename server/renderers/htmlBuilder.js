@@ -7,6 +7,7 @@ import {
   logoImgTag, logoDataUri,
   logoHorizontalBlack, logoHorizontalWhite,
   logoStackedBlack, logoStackedWhite,
+  logoStackedColorBlack,
 } from '../brand/logo.js';
 import { processPageBreaks } from '../utils/pageBreaks.js';
 
@@ -126,9 +127,12 @@ function pageCSS(options) {
   const bodyW = pageW - 0.5; // subtract 0.25in margins each side
   const bodyH = pageH - 0.5;
 
+  const coverH = (pageH - 0.5).toFixed(2); // page height minus 2 × 0.25in margins
+
   return `
-    @page { size: ${sizeValue}; margin: 0.75in 0.25in; }
-    @page :first { margin-top: 0.25in; margin-bottom: 0.75in; }
+    @page { size: ${sizeValue}; margin: 0.25in; }
+    /* Override cover min-height to exactly fill the content area (pageH - 2×0.25in) */
+    .cover-dark, .cover-gradient, .cover-minimal { min-height: ${coverH}in !important; }
     /* Preview: simulate pages like Word/Google Docs */
     body {
       max-width: ${pageW}in;
@@ -207,10 +211,12 @@ export function buildHTML(doc, options = {}) {
     logoDataUri,
     logoHorizWhite: logoHorizontalWhite(28),
     logoHorizBlack: logoHorizontalBlack(28),
-    logoHorizWhiteLg: logoHorizontalWhite(40),
-    logoHorizBlackLg: logoHorizontalBlack(40),
+    logoHorizWhiteLg: logoHorizontalWhite(52),
+    logoHorizBlackLg: logoHorizontalBlack(52),
     logoStackedWhite: logoStackedWhite(44),
     logoStackedBlack: logoStackedBlack(44),
+    logoStackedBlackLg: logoStackedBlack(80),
+    logoStackedColorBlack: logoStackedColorBlack(80),
     title: options.title || doc.metadata.title || 'Untitled Document',
     subtitle: options.subtitle || doc.metadata.subtitle || '',
     date: options.date || doc.metadata.date || '',
@@ -228,8 +234,8 @@ export function buildHTML(doc, options = {}) {
     logoDataUri,
     logoHorizWhite: logoHorizontalWhite(28),
     logoHorizBlack: logoHorizontalBlack(28),
-    logoHorizWhiteLg: logoHorizontalWhite(40),
-    logoHorizBlackLg: logoHorizontalBlack(36),
+    logoHorizWhiteLg: logoHorizontalWhite(52),
+    logoHorizBlackLg: logoHorizontalBlack(52),
     logoStackedWhite: logoStackedWhite(44),
     logoStackedBlack: logoStackedBlack(44),
     title: options.title || doc.metadata.title || 'Untitled Document',

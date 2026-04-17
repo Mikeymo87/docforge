@@ -3,6 +3,7 @@
    brand typography, and core element styling. */
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap');
 /* Acumin Pro loaded via Adobe Fonts if available; DM Sans is the fallback */
 
 :root {
@@ -48,11 +49,7 @@ p, li, td, th, blockquote, pre {
   font-family: 'acumin-pro', 'Acumin Pro', 'DM Sans', Arial, Helvetica, sans-serif;
 }
 
-/* ── PAGE RULES ── */
-@page {
-  size: letter;
-  margin: 0.75in 0.25in;
-}
+/* ── PAGE RULES ── (overridden per-render by htmlBuilder pageCSS) */
 
 /* ── PAGE BREAK CONTROL ── */
 /* Never leave a heading stranded at the bottom of a page */
@@ -76,8 +73,10 @@ tr { page-break-inside: avoid; }
 
 /* ── HEADINGS ── */
 h1 {
+  font-family: 'Poppins', 'DM Sans', Arial, sans-serif;
   font-size: 22pt;
-  font-weight: 800;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   color: var(--bh-green);
   line-height: 1.2;
   margin: 24px 0 8px;

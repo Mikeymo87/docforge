@@ -21,12 +21,13 @@
     border-radius: 2px;
   }
   .cover-minimal h1 {
+    font-family: 'Poppins', 'DM Sans', Arial, sans-serif;
     color: #1a1d1e;
     font-size: 40px;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.15;
     margin: 0 0 12px;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.02em;
   }
   .cover-minimal .subtitle {
     color: #2EA84A;
@@ -50,7 +51,7 @@
   @media print { .cover-minimal { min-height: 100vh; } }
 </style>
 <div class="cover-minimal">
-  <div class="cover-logo">{{{logoStackedBlack}}}</div>
+  <div class="cover-logo">{{{logoStackedColorBlack}}}</div>
   <div class="cover-divider"></div>
   <h1>{{title}}</h1>
   {{#if subtitle}}<p class="subtitle">{{subtitle}}</p>{{/if}}

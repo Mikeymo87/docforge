@@ -13,14 +13,16 @@
   .cover-gradient::after {
     content: '';
     position: absolute;
-    bottom: -40px;
-    right: -40px;
-    width: 320px;
-    height: 320px;
+    bottom: -20px;
+    right: -20px;
+    width: 340px;
+    height: 340px;
     background-image: url('{{{logoDataUri}}}');
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
-    opacity: 0.06;
+    opacity: 0.09;
+    -webkit-mask-image: radial-gradient(circle at center, black 35%, transparent 68%);
+    mask-image: radial-gradient(circle at center, black 35%, transparent 68%);
   }
   .cover-gradient .cover-bar {
     position: absolute;
@@ -31,18 +33,19 @@
     background: linear-gradient(90deg, #2EA84A, #7DE69B, #59BEC9);
   }
   .cover-gradient .cover-logo {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
   .cover-gradient .cover-logo img {
     filter: drop-shadow(0 0 12px rgba(46, 168, 74, 0.7));
   }
   .cover-gradient h1 {
+    font-family: 'Poppins', 'DM Sans', Arial, sans-serif;
     color: #fff;
     font-size: 52px;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.05;
     margin: 0 0 16px;
-    letter-spacing: -0.025em;
+    letter-spacing: 0.02em;
     max-width: 90%;
   }
   .cover-gradient .thin-rule {
@@ -67,7 +70,7 @@
 </style>
 <div class="cover-gradient">
   <div class="cover-bar"></div>
-  <div class="cover-logo">{{{logoImgLg}}}</div>
+  <div class="cover-logo">{{{logoHorizWhiteLg}}}</div>
   <h1>{{title}}</h1>
   <div class="thin-rule"></div>
   {{#if subtitle}}<p class="subtitle">{{subtitle}}</p>{{/if}}
