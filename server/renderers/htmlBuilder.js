@@ -123,7 +123,8 @@ function pageCSS(options) {
   const bodyH = pageH - 0.5;
 
   return `
-    @page { size: ${sizeValue}; margin: 0.25in; }
+    @page { size: ${sizeValue}; margin: 0.75in 0.25in; }
+    @page :first { margin-top: 0.25in; margin-bottom: 0.75in; }
     /* Preview: simulate pages like Word/Google Docs */
     body {
       max-width: ${pageW}in;

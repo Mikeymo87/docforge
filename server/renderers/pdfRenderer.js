@@ -16,7 +16,6 @@ export async function renderPdf(htmlString, options = {}) {
   const {
     format = 'Letter',
     landscape = false,
-    margin = { top: '0.75in', bottom: '1in', left: '0.25in', right: '0.25in' },
   } = options;
 
   const browser = await getBrowser();
@@ -29,8 +28,7 @@ export async function renderPdf(htmlString, options = {}) {
       format,
       landscape,
       printBackground: true,
-      preferCSSPageSize: false,
-      margin,
+      preferCSSPageSize: true,
     });
 
     return Buffer.from(pdfBuffer);
