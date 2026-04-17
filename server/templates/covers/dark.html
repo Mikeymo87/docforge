@@ -13,16 +13,9 @@
     position: absolute;
     top: 48px;
     left: 56px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
   }
-  .cover-dark .cover-org {
-    color: #7DE69B;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .cover-dark .cover-logo img {
+    filter: drop-shadow(0 0 12px rgba(46, 168, 74, 0.7));
   }
   .cover-dark .cover-type {
     position: absolute;
@@ -69,10 +62,7 @@
   @media print { .cover-dark { min-height: 100vh; } }
 </style>
 <div class="cover-dark">
-  <div class="cover-logo">
-    {{{logoImgLg}}}
-    <span class="cover-org">{{org}}</span>
-  </div>
+  <div class="cover-logo">{{{logoHorizWhiteLg}}}</div>
   <span class="cover-type">{{docType}}</span>
   <div class="cover-accent"></div>
   <h1>{{title}}</h1>
