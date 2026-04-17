@@ -3,7 +3,11 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import Handlebars from 'handlebars';
 import { marked } from 'marked';
-import { logoImgTag, logoDataUri } from '../brand/logo.js';
+import {
+  logoImgTag, logoDataUri,
+  logoHorizontalBlack, logoHorizontalWhite,
+  logoStackedBlack, logoStackedWhite,
+} from '../brand/logo.js';
 import { processPageBreaks } from '../utils/pageBreaks.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -216,6 +220,12 @@ export function buildHTML(doc, options = {}) {
     logoImg: logoImgTag(24),
     logoImgLg: logoImgTag(48),
     logoDataUri,
+    logoHorizWhite: logoHorizontalWhite(28),
+    logoHorizBlack: logoHorizontalBlack(28),
+    logoHorizWhiteLg: logoHorizontalWhite(36),
+    logoHorizBlackLg: logoHorizontalBlack(36),
+    logoStackedWhite: logoStackedWhite(44),
+    logoStackedBlack: logoStackedBlack(44),
     title: options.title || doc.metadata.title || 'Untitled Document',
     subtitle: options.subtitle || doc.metadata.subtitle || '',
     date: options.date || doc.metadata.date || '',
