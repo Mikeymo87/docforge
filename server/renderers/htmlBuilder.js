@@ -222,7 +222,7 @@ export function buildHTML(doc, options = {}) {
     logoDataUri,
     logoHorizWhite: logoHorizontalWhite(28),
     logoHorizBlack: logoHorizontalBlack(28),
-    logoHorizWhiteLg: logoHorizontalWhite(36),
+    logoHorizWhiteLg: logoHorizontalWhite(40),
     logoHorizBlackLg: logoHorizontalBlack(36),
     logoStackedWhite: logoStackedWhite(44),
     logoStackedBlack: logoStackedBlack(44),
