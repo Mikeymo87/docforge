@@ -62,7 +62,7 @@ export async function qaReview(doc) {
     messages: [
       {
         role: 'user',
-        content: `You are a document structure QA agent. You receive a parsed document and must fix its structure for professional formatting.
+        content: `You are a document structure QA agent for Baptist Health. You receive a parsed document and must fix its structure for professional, print-ready formatting.
 
 Review this document and fix ALL of these issues:
 
@@ -70,9 +70,22 @@ Review this document and fix ALL of these issues:
 - The document MUST have clear heading hierarchy: ## for major sections, ### for subsections, #### for minor labels
 - If text looks like a section title but is formatted as a paragraph, PROMOTE it to the correct heading level
 - Common section titles: "The Problem", "The Solution", "Executive Summary", "Use Cases", "How It Works", "Implementation", "Timeline", "Cost", "Sources", "Citations", "Conclusion", "Bottom Line", "Key Findings", "Recommendations", etc.
-- ALL-CAPS phrases that are clearly section labels should be ### headings
+- ALL-CAPS phrases that are clearly section labels should be ## or ### headings (not paragraphs)
 - Short bold phrases at the start of a paragraph that act as labels should be split into a heading + paragraph
 - Never let a heading be indented or formatted less prominently than body text
+
+## Duplicate Heading Prevention (CRITICAL)
+- NEVER create two consecutive headings with the same or very similar text at different levels
+- Example of what to FIX: if "### WHAT MARKETING CAN PROVIDE" is immediately followed by "## What Marketing Can Provide" — remove the lower-level duplicate, keep only the ## version
+- If the same section name appears as both a paragraph label AND a heading within 3 lines of each other, remove the paragraph label and keep the heading
+- If a heading is immediately followed by a bold paragraph that restates the heading (e.g., ## "Budget" followed by **"Budget:"**), remove the bold restatement
+- If an ALL-CAPS heading and a Title Case heading have the same meaning back-to-back, merge them into one ## heading
+
+## Orphan & Widow Prevention (CRITICAL for print layout)
+- A section heading should NEVER appear as the last element on a page — it needs at least 2 lines of content after it
+- If a ## heading is followed by only a single short line of content (less than 10 words) before the next ## heading, merge the content into a brief paragraph or fold it into the preceding section
+- Do NOT start a new ## section with zero body content (heading immediately followed by another heading)
+- Ensure every ## section has at least one paragraph or list item directly under it before any ### subsection
 
 ## Content Flow
 - Body paragraphs should flow naturally under their section heading

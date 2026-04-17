@@ -38,13 +38,23 @@ export function parseHtml(content) {
     const headers = [];
     $(table).find('thead th, thead td').each((_, th) => headers.push($(th).text().trim()));
 
+    // If no explicit thead, treat the first row as the header
+    if (!headers.length) {
+      const firstRow = $(table).find('tr').first();
+      firstRow.find('th, td').each((_, cell) => headers.push($(cell).text().trim()));
+    }
+
     if (headers.length) {
       lines.push('');
       lines.push(`| ${headers.join(' | ')} |`);
       lines.push(`| ${headers.map(() => '---').join(' | ')} |`);
-      $(table).find('tbody tr').each((_, tr) => {
+      // Find all data rows: all tr elements that are NOT the header row
+      const headerRow = $(table).find('thead tr').first()[0] ||
+                        $(table).find('tr').first()[0];
+      $(table).find('tr').each((_, tr) => {
+        if (tr === headerRow) return; // skip header row
         const cells = [];
-        $(tr).find('td').each((_, td) => cells.push($(td).text().trim()));
+        $(tr).find('td, th').each((_, td) => cells.push($(td).text().trim()));
         if (cells.length) lines.push(`| ${cells.join(' | ')} |`);
       });
       lines.push('');

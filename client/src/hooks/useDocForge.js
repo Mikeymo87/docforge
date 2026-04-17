@@ -7,6 +7,7 @@ const INITIAL_OPTIONS = {
   subtitle: '',
   docType: 'Report',
   showFooter: true,
+  showMasthead: true,
   pageSize: 'Letter',
   orientation: 'portrait',
 };

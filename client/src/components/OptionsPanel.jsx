@@ -20,6 +20,7 @@ const COVER_STYLES = [
 ];
 
 const TOGGLES = [
+  { key: 'showMasthead', label: 'Masthead' },
   { key: 'showFooter', label: 'Footer' },
 ];
 

@@ -2,6 +2,28 @@ function slugify(text) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
+// Parse a block of pipe-delimited table lines into a table section
+function parsePipeTable(tableLines) {
+  // Filter out separator lines (---|---|---)
+  const dataLines = tableLines.filter(l => !/^\|[\s\-|:]+\|$/.test(l));
+  if (dataLines.length < 2) return null;
+
+  const parseRow = line =>
+    line.replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+
+  const headers = parseRow(dataLines[0]);
+  const rows = dataLines.slice(1).map(parseRow);
+
+  // Normalize row lengths
+  const cols = headers.length;
+  const normalizedRows = rows.map(r => {
+    while (r.length < cols) r.push('');
+    return r.slice(0, cols);
+  });
+
+  return { type: 'table', headers, rows: normalizedRows };
+}
+
 // Only treat ALL CAPS as a heading if it looks like a real section title:
 // - At least 2 words (or a known pattern like "SECTION 1")
 // - Not just a data label like "ZIP" or "TOTAL"
@@ -105,6 +127,20 @@ export function parsePlainText(content) {
       flushBuffer();
       sections.push({ type: 'heading', level: 2, text: titleCase(trimmed), id: slugify(trimmed) });
       i++;
+      prevWasBlank = false;
+      continue;
+    }
+
+    // Pipe-delimited table
+    if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+      flushBuffer();
+      const tableLines = [];
+      while (i < lines.length && lines[i].trim().startsWith('|')) {
+        tableLines.push(lines[i].trim());
+        i++;
+      }
+      const parsed = parsePipeTable(tableLines);
+      if (parsed) sections.push(parsed);
       prevWasBlank = false;
       continue;
     }

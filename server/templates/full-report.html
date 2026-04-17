@@ -175,6 +175,36 @@
 
   @media print {
     .cover { min-height: 100vh; }
+    /* position: fixed repeats on every page in Chromium/Puppeteer print */
+    .report-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      z-index: 100;
+      padding: 0 56px 10px;
+      border-bottom: 2px solid #2EA84A;
+      margin-bottom: 0;
+    }
+    .report-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      z-index: 100;
+      padding: 8px 56px 0;
+      margin-top: 0;
+    }
+    /* Push body content down so it doesn't hide behind the fixed header */
+    .report-body {
+      padding-top: 52px;
+    }
+    /* TOC page also needs top padding */
+    .toc-page {
+      padding-top: 60px;
+    }
   }
 </style>
 </head>

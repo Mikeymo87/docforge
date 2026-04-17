@@ -41,8 +41,8 @@
     font-size: 44px;
     font-weight: 900;
     color: #fff;
-    line-height: 1.05;
-    letter-spacing: -0.025em;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
     margin: 0 0 10px;
   }
   .mag-subtitle {
@@ -243,6 +243,7 @@
 <div class="page">
   {{{coverHtml}}}
 
+  {{#if showMasthead}}
   <!-- ARTICLE HEADER -->
   <div class="mag-header">
     <div class="mag-header-top">
@@ -253,8 +254,8 @@
     {{#if subtitle}}<p class="mag-subtitle">{{subtitle}}</p>{{/if}}
     <p class="mag-meta">{{date}}</p>
   </div>
-
   <div class="mag-divider"></div>
+  {{/if}}
 
   <!-- PULL QUOTE (outside mag-body so drop cap selector is clean) -->
   {{#if pullQuote}}

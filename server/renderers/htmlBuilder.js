@@ -109,13 +109,16 @@ function extractBottomLine(sections) {
   return '';
 }
 
-// Generate @page CSS based on page size and orientation
+// Generate @page CSS based on page size, orientation, and template context
 function pageCSS(options) {
   const size = options.pageSize || 'Letter';
   const landscape = options.orientation === 'landscape';
   const sizeValue = landscape ? `${size} landscape` : size;
+  const template = options.template || 'executive-brief';
+  const showMasthead = options.showMasthead !== false;
+  const hasCover = !!(options.coverStyle && options.coverStyle !== 'none');
 
-  // Page dimensions for preview simulation
+  // Page dimensions
   const DIMS = {
     Letter: { w: 8.5, h: 11 },
     Legal: { w: 8.5, h: 14 },
@@ -124,14 +127,26 @@ function pageCSS(options) {
   const dim = DIMS[size] || DIMS.Letter;
   const pageW = landscape ? dim.h : dim.w;
   const pageH = landscape ? dim.w : dim.h;
-  const bodyW = pageW - 0.5; // subtract 0.25in margins each side
-  const bodyH = pageH - 0.5;
 
-  const coverH = (pageH - 0.5).toFixed(2); // page height minus 2 × 0.25in margins
+  // Top margin: 0.25in when document has a masthead, running header, or cover page.
+  // Otherwise (bare content, masthead toggled off, no cover) use 0.5in.
+  const hasTopElement = (
+    hasCover ||
+    template === 'full-report' ||
+    template === 'magazine' ||
+    (template === 'executive-brief' && showMasthead)
+  );
+  const topMarginIn = hasTopElement ? 0.25 : 0.5;
+  const topMargin = `${topMarginIn}in`;
+  const bottomMargin = '0.5in';
+  const sideMargin = '0.25in';
+
+  // Cover fills from topMarginIn from paper top to 0.25in from paper bottom
+  const coverH = (pageH - topMarginIn - 0.25).toFixed(2);
 
   return `
-    @page { size: ${sizeValue}; margin: 0.25in; }
-    /* Override cover min-height to exactly fill the content area (pageH - 2×0.25in) */
+    @page { size: ${sizeValue}; margin: ${topMargin} ${sideMargin} ${bottomMargin}; }
+    /* Override cover min-height to fill from top margin to near paper bottom */
     .cover-dark, .cover-gradient, .cover-minimal { min-height: ${coverH}in !important; }
     /* Preview: simulate pages like Word/Google Docs */
     body {
@@ -170,6 +185,7 @@ export function buildHTML(doc, options = {}) {
     template = 'executive-brief',
     showHeader = true,
     showFooter = true,
+    showMasthead = true,
     docType = 'Report',
   } = options;
 
@@ -243,6 +259,7 @@ export function buildHTML(doc, options = {}) {
     date: options.date || doc.metadata.date || '',
     org: doc.metadata.org || 'Baptist Health',
     docType,
+    showMasthead,
     confidentiality: doc.metadata.confidentiality || 'Internal Use Only',
     sections: prepared,
     toc,

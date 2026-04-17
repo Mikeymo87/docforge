@@ -54,9 +54,9 @@
     color: #fff;
     font-size: 36px;
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.25;
     margin: 0 0 8px;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.01em;
   }
   .doc-header .subtitle {
     color: #7DE69B;
@@ -145,22 +145,58 @@
     color: #25282A;
   }
 
-  /* Lists — indented with breathing room */
-  .doc-body ul, .doc-body ol {
-    margin: 4px 0 10px;
-    padding-left: 6px;
+  /* Lists */
+  .doc-body ul {
+    padding-left: 18px;
+    margin: 5px 0 10px;
   }
   .doc-body ul li {
     font-size: 13px;
-    margin-bottom: 3px;
-    padding-left: 20px;
+    margin-bottom: 4px;
+    padding-left: 16px;
+    line-height: 1.55;
+  }
+  .doc-body ul ul {
+    padding-left: 18px;
+    margin: 3px 0 4px;
+  }
+  .doc-body ul ul li {
+    font-size: 12px;
+    color: #555;
+  }
+  .doc-body ul ul ul {
+    padding-left: 14px;
+    margin: 2px 0 3px;
+  }
+  .doc-body ul ul ul li {
+    font-size: 12px;
+    color: #777;
   }
   .doc-body ol {
-    padding-left: 28px;
+    padding-left: 30px;
+    margin: 5px 0 10px;
   }
   .doc-body ol li {
     font-size: 13px;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
+    padding-left: 4px;
+  }
+  .doc-body ol ol {
+    padding-left: 24px;
+    margin: 3px 0 4px;
+    list-style-type: lower-alpha;
+  }
+  /* Content under H3 indents to align with H3 left bar */
+  .doc-body h3 + p,
+  .doc-body h3 + ul,
+  .doc-body h3 + ol {
+    padding-left: 15px;
+  }
+  /* Content under H4 indents further */
+  .doc-body h4 + p,
+  .doc-body h4 + ul,
+  .doc-body h4 + ol {
+    padding-left: 30px;
   }
 
   /* Blockquotes */
@@ -220,6 +256,7 @@
 <body>
 <div class="page">
   {{{coverHtml}}}
+  {{#if showMasthead}}
   <!-- HEADER -->
   <div class="doc-header">
     <div class="header-top">
@@ -231,6 +268,7 @@
     <p class="meta">{{date}}</p>
   </div>
   <div class="divider"></div>
+  {{/if}}
 
   <!-- BODY -->
   <div class="doc-body">
