@@ -21,7 +21,8 @@ router.post('/', upload.single('file'), async (req, res) => {
 
     const { originalname, buffer } = req.file;
     const ext = extname(originalname).toLowerCase();
-    const content = ext === '.pdf' ? buffer : buffer.toString('utf-8');
+    const binaryExts = new Set(['.pdf', '.docx']);
+    const content = binaryExts.has(ext) ? buffer : buffer.toString('utf-8');
     let doc = await parse(originalname, content);
 
     // QA agent reviews and fixes structure
@@ -48,9 +49,10 @@ router.post('/merge', upload.array('files', 20), async (req, res) => {
     }
 
     const docs = [];
+    const binaryExts = new Set(['.pdf', '.docx']);
     for (const file of req.files) {
       const ext = extname(file.originalname).toLowerCase();
-      const content = ext === '.pdf' ? file.buffer : file.buffer.toString('utf-8');
+      const content = binaryExts.has(ext) ? file.buffer : file.buffer.toString('utf-8');
       const doc = await parse(file.originalname, content);
       docs.push({ filename: file.originalname, doc });
     }

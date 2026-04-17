@@ -7,7 +7,7 @@ import DownloadBar from './components/DownloadBar';
 
 export default function App() {
   const {
-    state, doc, filename, options, previewHtml, error,
+    state, doc, filename, options, previewUrl, error,
     upload, mergeUpload, pasteText, updateOptions, downloadPdf, reset,
   } = useDocForge();
 
@@ -50,11 +50,13 @@ export default function App() {
           </div>
         </div>
       )}
-      {state === 'rendering' && (
+      {(state === 'rendering' || state === 'previewing') && (
         <div className="loading-overlay">
           <div className="loading-card">
             <div className="spinner" />
-            <div style={{ color: 'var(--bh-text)', fontSize: 14 }}>Rendering PDF...</div>
+            <div style={{ color: 'var(--bh-text)', fontSize: 14 }}>
+              {state === 'rendering' ? 'Rendering PDF...' : 'Updating preview...'}
+            </div>
           </div>
         </div>
       )}
@@ -66,7 +68,7 @@ export default function App() {
         <>
           <div className="workspace">
             <OptionsPanel options={options} onChange={updateOptions} />
-            <PreviewPane html={previewHtml} />
+            <PreviewPane previewUrl={previewUrl} state={state} />
           </div>
           <DownloadBar
             state={state}

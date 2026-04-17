@@ -2,21 +2,20 @@ import { extname } from 'path';
 import { parseMarkdown } from './parseMarkdown.js';
 import { parsePlainText } from './parsePlainText.js';
 import { parsePdf } from './parsePdf.js';
+import { parseDocx } from './parseDocx.js';
+import { parseHtml } from './parseHtml.js';
 
 const SYNC_PARSERS = {
   '.md': parseMarkdown,
   '.markdown': parseMarkdown,
   '.txt': parsePlainText,
+  '.html': parseHtml,
+  '.htm': parseHtml,
 };
 
 const ASYNC_PARSERS = {
   '.pdf': parsePdf,
-};
-
-const PENDING_PARSERS = {
-  '.docx': null,  // Phase 4
-  '.html': null,  // Phase 4
-  '.htm': null,   // Phase 4
+  '.docx': parseDocx,
 };
 
 export async function parse(filePath, content) {
@@ -35,15 +34,10 @@ export async function parse(filePath, content) {
     return doc;
   }
 
-  if (ext in PENDING_PARSERS) {
-    throw new Error(`Parser for ${ext} files is not yet implemented. Supported: .md, .txt, .pdf`);
-  }
-
   throw new Error(`Unsupported file type: ${ext}. Supported: .md, .txt, .pdf, .docx, .html`);
 }
 
 export const SUPPORTED_EXTENSIONS = [
   ...Object.keys(SYNC_PARSERS),
   ...Object.keys(ASYNC_PARSERS),
-  ...Object.keys(PENDING_PARSERS),
 ];

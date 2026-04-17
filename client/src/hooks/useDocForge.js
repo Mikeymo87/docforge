@@ -16,7 +16,8 @@ export function useDocForge() {
   const [doc, setDoc] = useState(null);
   const [filename, setFilename] = useState('');
   const [options, setOptions] = useState(INITIAL_OPTIONS);
-  const [previewHtml, setPreviewHtml] = useState('');
+  const [previewUrl, setPreviewUrl] = useState('');
+  const previewBlobRef = useRef(null);
   const [error, setError] = useState('');
   const debounceRef = useRef(null);
 
@@ -82,15 +83,23 @@ export function useDocForge() {
   }, []);
 
   const fetchPreview = useCallback(async (docData, opts) => {
+    setState('previewing');
     try {
-      const res = await fetch('/api/preview', {
+      const res = await fetch('/api/render', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ doc: docData, options: opts }),
+        body: JSON.stringify({ doc: docData, options: opts, format: 'preview' }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-      setPreviewHtml(data.html);
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error);
+      }
+      const blob = await res.blob();
+      // Revoke previous blob URL to avoid memory leaks
+      if (previewBlobRef.current) URL.revokeObjectURL(previewBlobRef.current);
+      const url = URL.createObjectURL(blob);
+      previewBlobRef.current = url;
+      setPreviewUrl(url);
       setState('parsed');
     } catch (err) {
       setError(err.message);
@@ -180,13 +189,15 @@ export function useDocForge() {
     setDoc(null);
     setFilename('');
     setOptions(INITIAL_OPTIONS);
-    setPreviewHtml('');
+    if (previewBlobRef.current) URL.revokeObjectURL(previewBlobRef.current);
+    previewBlobRef.current = null;
+    setPreviewUrl('');
     setError('');
     setState('idle');
   }, []);
 
   return {
-    state, doc, filename, options, previewHtml, error,
+    state, doc, filename, options, previewUrl, error,
     upload, mergeUpload, pasteText, updateOptions, downloadPdf, reset,
   };
 }

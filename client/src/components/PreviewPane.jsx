@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function PreviewPane({ html }) {
-  if (!html) {
+export default function PreviewPane({ previewUrl, state }) {
+  if (!previewUrl) {
     return (
       <div className="preview-area" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ color: 'var(--bh-text-muted)', fontSize: 14 }}>
@@ -12,12 +12,20 @@ export default function PreviewPane({ html }) {
   }
 
   return (
-    <div className="preview-area">
+    <div className="preview-area" style={{ position: 'relative' }}>
+      {state === 'previewing' && (
+        <div style={{
+          position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 10, borderRadius: 4,
+        }}>
+          <div style={{ color: '#fff', fontSize: 13 }}>Updating preview...</div>
+        </div>
+      )}
       <iframe
         className="preview-frame"
-        srcDoc={html}
+        src={previewUrl}
         title="Document Preview"
-        sandbox="allow-same-origin"
       />
     </div>
   );

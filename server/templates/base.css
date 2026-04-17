@@ -3,6 +3,7 @@
    brand typography, and core element styling. */
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+/* Acumin Pro loaded via Adobe Fonts if available; DM Sans is the fallback */
 
 :root {
   --bh-green: #2EA84A;
@@ -32,16 +33,25 @@ html {
 }
 
 body {
-  font-family: 'DM Sans', Arial, Helvetica, sans-serif;
+  font-family: 'acumin-pro', 'Acumin Pro', 'DM Sans', Arial, Helvetica, sans-serif;
   color: var(--bh-black);
   font-size: 11pt;
   line-height: 1.65;
 }
 
+/* Acumin typographic hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'acumin-pro-extra-condensed', 'acumin-pro', 'Acumin Pro ExtraCondensed', 'Acumin Pro', 'DM Sans', Arial, sans-serif;
+}
+
+p, li, td, th, blockquote, pre {
+  font-family: 'acumin-pro', 'Acumin Pro', 'DM Sans', Arial, Helvetica, sans-serif;
+}
+
 /* ── PAGE RULES ── */
 @page {
   size: letter;
-  margin: 0.25in;
+  margin: 0.75in 0.25in;
 }
 
 /* ── PAGE BREAK CONTROL ── */
@@ -65,14 +75,14 @@ tr { page-break-inside: avoid; }
 h1 {
   font-size: 22pt;
   font-weight: 800;
-  color: var(--bh-black);
+  color: var(--bh-green);
   line-height: 1.2;
   margin: 24px 0 8px;
 }
 h2 {
   font-size: 16pt;
   font-weight: 800;
-  color: var(--bh-black);
+  color: var(--bh-green);
   line-height: 1.3;
   margin: 22px 0 6px;
 }

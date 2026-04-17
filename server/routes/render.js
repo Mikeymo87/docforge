@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 
     const html = buildHTML(doc, options || {});
 
-    if (format === 'pdf') {
+    if (format === 'pdf' || format === 'preview') {
       const pdfOpts = {
         format: options?.pageSize || 'Letter',
         landscape: options?.orientation === 'landscape',
@@ -25,9 +25,13 @@ router.post('/', async (req, res) => {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '');
 
+      const disposition = format === 'preview'
+        ? 'inline'
+        : `attachment; filename="BH-${slug}.pdf"`;
+
       res.set({
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="BH-${slug}.pdf"`,
+        'Content-Disposition': disposition,
         'Content-Length': pdfBuffer.length,
       });
       return res.send(pdfBuffer);
