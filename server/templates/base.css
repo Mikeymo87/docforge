@@ -56,7 +56,10 @@ p, li, td, th, blockquote, pre {
 
 /* ── PAGE BREAK CONTROL ── */
 /* Never leave a heading stranded at the bottom of a page */
-h1, h2, h3, h4 { page-break-after: avoid; break-after: avoid; }
+h1, h2, h3, h4 {
+  page-break-after: avoid; break-after: avoid;
+  page-break-inside: avoid; break-inside: avoid;
+}
 
 /* Don't split tables or blockquotes across pages if possible */
 table, blockquote, .callout { page-break-inside: avoid; }
