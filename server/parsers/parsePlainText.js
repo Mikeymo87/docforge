@@ -23,7 +23,13 @@ function isLikelyHeading(trimmed, prevWasBlank) {
 }
 
 export function parsePlainText(content) {
-  const lines = content.split(/\r?\n/);
+  // Strip base64 data URIs and markdown image syntax (from mammoth docx extraction)
+  const cleaned = content
+    .replace(/!\[[^\]]*\]\(data:[^)]+\)/g, '')   // ![alt](data:...)
+    .replace(/data:image\/[a-z+]+;base64,[A-Za-z0-9+/=]{20,}/g, '')  // bare base64 URIs
+    .replace(/^!\[.*$/gm, '');  // stray ![... lines without closing paren
+
+  const lines = cleaned.split(/\r?\n/);
   const sections = [];
   const metadata = {
     title: '',
@@ -116,7 +122,7 @@ export function parsePlainText(content) {
       continue;
     }
 
-    // Numbered list
+    // Numbered list (or numbered heading — e.g. "1. Section Title" from Word outlines)
     if (/^\d+[\.\)]\s+/.test(trimmed)) {
       flushBuffer();
       const items = [];
@@ -124,7 +130,12 @@ export function parsePlainText(content) {
         items.push(lines[i].trim().replace(/^\d+[\.\)]\s+/, ''));
         i++;
       }
-      sections.push({ type: 'list', ordered: true, items });
+      // Single item preceded by blank and item is long → treat as a section heading
+      if (items.length === 1 && prevWasBlank && items[0].length > 20) {
+        sections.push({ type: 'heading', level: 2, text: items[0], id: slugify(items[0]) });
+      } else {
+        sections.push({ type: 'list', ordered: true, items });
+      }
       prevWasBlank = false;
       continue;
     }

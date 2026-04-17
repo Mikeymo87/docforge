@@ -3,81 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{title}} — {{subtitle}}</title>
+<title>{{title}}</title>
 <style>{{{baseCSS}}}</style>
 <style>
-  /* ── MAGAZINE TEMPLATE ── */
-  body { background: #fff; }
-  .page { background: #fff; }
+  /* ── MAGAZINE / EDITORIAL TEMPLATE ── */
 
-  /* Cover is now injected via coverHtml — see server/templates/covers/ */
-
-  /* ── BODY LAYOUT ── */
-  .mag-body {
-    padding: 36px 48px 40px;
+  /* ── HEADER ── */
+  .mag-header {
+    padding: 32px 52px 22px;
   }
-
-  /* ── DROP CAP on first paragraph after h2 ── */
-  .mag-body h2 + p::first-letter {
-    float: left;
-    font-size: 52px;
-    line-height: 0.85;
-    padding-right: 8px;
-    padding-top: 4px;
-    color: #2EA84A;
-    font-weight: 800;
+  .mag-header-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
   }
-
-  /* ── HEADINGS ── */
-  .mag-body h2 {
-    font-size: 28px;
-    font-weight: 800;
-    color: #1a1d1e;
-    margin: 32px 0 10px;
-    letter-spacing: -0.015em;
-    line-height: 1.15;
-  }
-  .mag-body h2:first-child {
-    margin-top: 0;
-  }
-  /* Section number accent */
-  .mag-body h2::before {
-    display: none;
-  }
-  .mag-body h3 {
-    font-size: 17px;
+  .mag-org {
+    font-size: 11px;
     font-weight: 700;
-    color: #25282A;
-    margin: 22px 0 6px;
-    padding-bottom: 4px;
-    border-bottom: 0.25px solid #e8eaec;
-  }
-  .mag-body h4 {
-    font-size: 13px;
-    font-weight: 700;
-    color: #2EA84A;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin: 16px 0 4px;
+    color: #2EA84A;
   }
-
-  /* ── BODY TEXT ── */
-  .mag-body p {
-    font-size: 13px;
-    color: #444;
-    line-height: 1.7;
+  .mag-doctype {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #aab0b7;
+    margin-left: auto;
+  }
+  .mag-header h1 {
+    font-size: 44px;
+    font-weight: 900;
+    color: #25282A;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
     margin: 0 0 10px;
   }
+  .mag-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2EA84A;
+    margin: 0 0 6px;
+    line-height: 1.4;
+  }
+  .mag-meta {
+    font-size: 11px;
+    color: #aab0b7;
+    margin: 0;
+  }
 
-  /* ── PULL QUOTE ── */
+  /* ── GRADIENT DIVIDER ── */
+  .mag-divider {
+    height: 3px;
+    background: linear-gradient(90deg, #2EA84A 0%, #7DE69B 50%, transparent 100%);
+  }
+
+  /* ── PULL QUOTE (outside mag-body so drop cap selector isn't confused) ── */
   .mag-pullquote {
-    margin: 28px 0;
-    padding: 0;
-    border: none;
-    background: none;
+    margin: 0;
+    padding: 28px 72px;
     text-align: center;
-    position: relative;
-    font-style: normal;
+    border-bottom: 1px solid #e8eaec;
+    background: #fafafa;
   }
   .mag-pullquote::before {
     content: "\201C";
@@ -85,74 +74,119 @@
     font-size: 72px;
     line-height: 0.5;
     color: #7DE69B;
-    font-weight: 800;
-    margin-bottom: 8px;
+    font-weight: 900;
+    margin-bottom: 10px;
   }
   .mag-pullquote p {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 600;
     color: #25282A;
-    line-height: 1.5;
+    line-height: 1.55;
     font-style: italic;
     max-width: 80%;
     margin: 0 auto;
   }
 
-  /* ── SIDEBAR CALLOUT ── */
-  .mag-sidebar {
-    float: right;
-    width: 38%;
-    margin: 4px 0 16px 24px;
-    padding: 20px 22px;
-    background: #1a1d1e;
-    border-radius: 8px;
-    color: #fff;
+  /* ── BODY ── */
+  .mag-body {
+    padding: 36px 52px 40px;
+    counter-reset: mag-section;
   }
-  .mag-sidebar .sidebar-label {
-    font-size: 9px;
+
+  /* Drop cap — first paragraph in body only */
+  .mag-body > p:first-of-type::first-letter {
+    float: left;
+    font-size: 62px;
+    line-height: 0.82;
+    padding-right: 7px;
+    padding-top: 3px;
+    color: #2EA84A;
+    font-weight: 900;
+  }
+
+  /* ── HEADINGS ── */
+  /* H2 — Major section with auto-number */
+  .mag-body h2 {
+    font-size: 30px;
+    font-weight: 900;
+    color: #25282A;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    border-top: 2px solid #2EA84A;
+    padding-top: 22px;
+    margin: 40px 0 10px;
+    clear: both;
+  }
+  .mag-body h2:first-child {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .mag-body h2::before {
+    counter-increment: mag-section;
+    content: counter(mag-section, decimal-leading-zero);
+    display: block;
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.14em;
+    color: #2EA84A;
+    margin-bottom: 5px;
+  }
+
+  /* H3 — Subsection */
+  .mag-body h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2EA84A;
+    margin: 22px 0 6px;
+    letter-spacing: 0.01em;
+  }
+
+  /* H4 — Minor label */
+  .mag-body h4 {
+    font-size: 11px;
+    font-weight: 800;
+    color: #25282A;
     text-transform: uppercase;
-    color: #7DE69B;
-    margin-bottom: 8px;
+    letter-spacing: 0.09em;
+    margin: 16px 0 5px;
   }
-  .mag-sidebar p {
-    color: rgba(255,255,255,0.85);
-    font-size: 12px;
+
+  /* ── BODY TEXT ── */
+  .mag-body p {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.75;
+    margin: 0 0 10px;
+  }
+
+  /* ── LISTS ── */
+  .mag-body ul li,
+  .mag-body ol li {
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 5px;
+  }
+
+  /* ── BLOCKQUOTES (inline, not pull quote) ── */
+  .mag-body blockquote {
+    border-left: 3px solid #2EA84A;
+    padding: 12px 20px;
+    margin: 16px 0;
+    font-style: italic;
+    color: #555;
+    font-size: 14px;
     line-height: 1.6;
-    margin: 0 0 6px;
-  }
-  .mag-sidebar strong {
-    color: #7DE69B;
+    background: none;
   }
 
   /* ── TABLES ── */
   .mag-body table {
     font-size: 12px;
     margin: 10px 0 16px;
-    border-radius: 6px;
-    overflow: hidden;
   }
 
-  /* ── LISTS ── */
-  .mag-body ul li, .mag-body ol li {
-    font-size: 13px;
-    margin-bottom: 4px;
-    line-height: 1.6;
-  }
-
-  /* ── BLOCKQUOTES ── */
-  .mag-body blockquote {
-    font-size: 14px;
-    margin: 16px 0;
-    padding: 14px 22px;
-    border-left: 3px solid #2EA84A;
-    background: none;
-    font-style: italic;
-    color: #555;
-  }
-
-  /* ── SECTION DIVIDER ── */
+  /* ── HR (section break) ── */
   .mag-body hr {
     border: none;
     height: 2px;
@@ -160,12 +194,12 @@
     margin: 28px 0;
   }
 
-  /* ── BOTTOM LINE ── */
+  /* ── BOTTOM LINE CALLOUT ── */
   .mag-bottomline {
-    background: #1a1d1e;
-    border-radius: 10px;
-    padding: 24px 28px;
-    margin-top: 28px;
+    background: #25282A;
+    border-radius: 8px;
+    padding: 22px 28px;
+    margin-top: 36px;
   }
   .mag-bottomline .bl-label {
     font-size: 10px;
@@ -173,7 +207,7 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #7DE69B;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .mag-bottomline p {
     font-size: 15px;
@@ -188,17 +222,42 @@
     text-align: center;
     font-size: 10px;
     color: #aab0b7;
-    padding: 24px 48px 20px;
+    padding: 16px 52px 20px;
     border-top: 0.25px solid #e8eaec;
-    margin-top: 40px;
+    margin-top: 8px;
   }
 
-  @media print { }
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; border-radius: 0; margin: 0; width: 100%; }
+  }
 </style>
 </head>
 <body>
 <div class="page">
   {{{coverHtml}}}
+
+  <!-- ARTICLE HEADER -->
+  <div class="mag-header">
+    <div class="mag-header-top">
+      {{{logoImg}}}
+      <span class="mag-org">{{org}}</span>
+      <span class="mag-doctype">{{docType}}</span>
+    </div>
+    <h1>{{title}}</h1>
+    {{#if subtitle}}<p class="mag-subtitle">{{subtitle}}</p>{{/if}}
+    <p class="mag-meta">{{date}}</p>
+  </div>
+
+  <div class="mag-divider"></div>
+
+  <!-- PULL QUOTE (outside mag-body so drop cap selector is clean) -->
+  {{#if pullQuote}}
+  <div class="mag-pullquote">
+    <p>{{{pullQuote}}}</p>
+  </div>
+  {{/if}}
 
   <!-- BODY -->
   <div class="mag-body">
@@ -258,7 +317,6 @@
   {{#if footnote}}
   <div class="mag-footer">{{footnote}}</div>
   {{/if}}
-
 </div>
 </body>
 </html>

@@ -81,22 +81,33 @@
 
   /* H2 — Major sections */
   .doc-body h2 {
-    font-size: 22px;
-    font-weight: 800;
+    font-size: 26px;
+    font-weight: 900;
     color: #1a1d1e;
-    margin: 20px 0 6px;
-    letter-spacing: -0.01em;
+    margin: 24px 0 6px;
+    letter-spacing: -0.02em;
   }
   .doc-body h2:first-child {
     margin-top: 0;
   }
 
-  /* H3 — Subsections */
+  /* H3 — Subsections (indented, green left bar) */
   .doc-body h3 {
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 800;
     color: #25282A;
-    margin: 16px 0 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 14px 0 4px;
+    padding-left: 12px;
+    border-left: 3px solid #2EA84A;
+  }
+
+  /* Indent the paragraph(s) that follow an h3 */
+  .doc-body h3 + p,
+  .doc-body h3 + ul,
+  .doc-body h3 + ol {
+    padding-left: 15px;
   }
 
   /* H4 — Minor labels */
@@ -107,6 +118,7 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
     margin: 12px 0 3px;
+    padding-left: 15px;
   }
 
   /* Body text */
